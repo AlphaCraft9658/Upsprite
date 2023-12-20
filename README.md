@@ -28,5 +28,5 @@ On SUSE:
 
     sudo zypper install gcc-c++ clang libc++-devel libc++abi-devel cmake ninja libX11-devel libXcursor-devel libXi-devel Mesa-libGL-devel fontconfig-devel
 
-## If you encounter issues
+## Issues?
 If you encounter any issues, either try to find the cause from the command line output or submit an issue on the upsprite github repo.
