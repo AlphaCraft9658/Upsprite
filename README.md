@@ -1,3 +1,6 @@
+# Upsprite
+## A script for automatically building Aseprite on Linux
+
 ## Installation
 Before running the install script, make sure your distro specific dependencies listed in the Dependencies section are installed or just run the correct install command.
 For installing Aseprite make sure upsprite.sh has execution permissions, simply run ./upsprite and follow any promtps given.
