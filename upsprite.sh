@@ -130,3 +130,4 @@ StartupNotify=true
 Terminal=false
 Type=Application
 X-KDE-SubstituteUID=false" > $HOME/.local/share/applications/Aseprite.desktop
+echo "Successfully installed Aseprite!"
