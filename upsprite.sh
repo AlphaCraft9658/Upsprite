@@ -83,10 +83,10 @@ skia_setup() {
         build_skia
       fi
     done
-  elif [ $prebuilt = false]; then
+  elif [ $prebuilt = false ]; then
     printf "There is no prebuilt package of skia for your architecture. Automatically building skia.\n"
     build_skia
-  elif [ $prebuilt = true]; then
+  elif [ $prebuilt = true ]; then
     printf "The is no prebuilt package of skia for your architecture. Building skia anyway.\n"
     build_skia
   fi
