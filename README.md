@@ -6,6 +6,9 @@ Before running the install script, make sure your distro specific dependencies l
 For installing Aseprite make sure upsprite.sh has execution permissions, simply run ./upsprite and follow any promtps given.
 If you want to automate the installation with your own scripts and integrate upsprite, or just quickly run without the prompts, you can run the script with `--prebuilt` to automatically use the prebuilt skia, `--rebuild-skia` for automatically removing and rebuilding/redownloading skia and `--full` for automatically building skia, independant of whether there is a prebuilt package available or not.
 
+## Uninstall
+Just run upsprite.sh with the `--uninstall` flag.
+
 ## Dependencies
 
 You will need the following dependencies on Ubuntu/Debian:
