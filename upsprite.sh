@@ -5,6 +5,7 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 full=false
 prebuilt=false
 rebuild=false
+uninstall=false
 
 while [ $# -gt 0 ]; do
   if [[ $1 == "--full" && "$prebuilt" = false ]]; then
@@ -13,9 +14,18 @@ while [ $# -gt 0 ]; do
     prebuilt=true
   elif [ $1 == "--rebuild-skia" ]; then
     rebuild=true
+  elif [ $1 == "--uninstall" ]; then
+    uninstall=true
+    break
   fi
   shift
 done
+
+if [ "$uninstall" = true ]; then
+  rm -f $HOME/.local/bin/aseprite
+  rm -f $HOME/.local/share/applications/Aseprite.desktop
+  exit 0
+fi
 
 echo "----- Fetching Aseprite source -----"
 if [ ! -d "$SCRIPT_DIR/aseprite" ]; then
