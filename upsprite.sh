@@ -5,6 +5,7 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 full=false
 prebuilt=false
 rebuild=false
+local=false
 uninstall=false
 
 while [ $# -gt 0 ]; do
@@ -14,6 +15,8 @@ while [ $# -gt 0 ]; do
     prebuilt=true
   elif [ $1 == "--rebuild-skia" ]; then
     rebuild=true
+  elif [ $1 == "--local-skia" ]; then
+    local=true
   elif [ $1 == "--uninstall" ]; then
     uninstall=true
     break
@@ -25,6 +28,15 @@ if [ "$uninstall" = true ]; then
   rm -f $HOME/.local/bin/aseprite
   rm -f $HOME/.local/share/applications/Aseprite.desktop
   exit 0
+fi
+
+if [[ "$prebuilt" = true && "$full" = true ]]; then
+  echo "You can't both use the prebuilt and self-compile skia. Use either one of the flags \"--prebuilt\" and \"--full\"."
+fi
+
+if [[ ("$local" = true && "$rebuild" = true) || ("$local" = true && "$full" = true) || ("$local" = true && "$prebuilt" = true) ]]; then
+  echo "You can't use the flags \"--rebuild\", \"--full\" or \"--prebuilt\" in combination with \"--local-skia\". Try again with a valid combination of flags."
+  exit 1
 fi
 
 echo "----- Fetching Aseprite source -----"
@@ -58,12 +70,12 @@ skia_setup() {
     build_skia
     return
   fi
-  if [[ $(uname -m) == "x86_64" && "$prebuilt" = true ]]; then
+  if [[ $(uname -m) == "x86_64" && "$prebuilt" = true && "$local" = false ]]; then
     curl -LO https://github.com/aseprite/skia/releases/download/m102-861e4743af/Skia-Linux-Release-x64-libc++.zip
     mkdir deps
     unzip Skia-Linux-Release-x64-libc++.zip -d deps/skia
     rm Skia-Linux-Release-x64-libc++.zip
-  elif [[ $(uname -m) == "x86_64" && $prebuilt = false ]]; then
+  elif [[ $(uname -m) == "x86_64" && $prebuilt = false && "$local" = false ]]; then
     input="x"
     printf "There is a prebuilt package of skia for your current architecture.\nDo you want to use the prebuilt archive? This will speed up the build process! (NOTE: If you encounter any issues while using the prebuilt package, try to re-run this script and tick n instead) (y/n): "
     set +e
@@ -93,7 +105,7 @@ skia_setup() {
 }
 
 echo "----- Skia setup -----"
-if [[ -d "$SCRIPT_DIR/deps" && "$rebuild" = false ]]; then
+if [[ -d "$SCRIPT_DIR/deps" && "$rebuild" = false && "$local" = false ]]; then
   printf "The directory $SCRIPT_DIR/deps already exists.\nIf you have encountered issues issues with the prebuilt archive in a previous attempt or want to rebuild/re-download skia, you should remove the directory first.\nDo you want to do that? (y/n): "
   input="x"
   set +e
@@ -110,7 +122,7 @@ if [[ -d "$SCRIPT_DIR/deps" && "$rebuild" = false ]]; then
 elif [ "$rebuild" = true ]; then
   rm -rf deps
   skia_setup
-else
+elif [ "$local" = false ]; then
   skia_setup
 fi
 
