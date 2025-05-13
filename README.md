@@ -1,3 +1,6 @@
+# DEPRECATION NOTICE
+As Aseprite has a pretty comprehensive building guide and now even a build script for all relevant platforms, this script is no longer useful and you can use their official resources to more easily compile Aseprite for development or personal use. This script may or may not work in the future, but it appears to have problems currently. I have attempted to fix those build issues, but as there is the aforementioned official script now, this is no longer necessary. This repo will stay publically accessible, but will be archived, if anyone wants to see how the script worked and wants to maybe use some used techniques in their own scripts.
+
 # Upsprite
 ## A script for automatically building Aseprite on Linux
 
