@@ -56,7 +56,7 @@ build_skia() {
   echo "----- Building skia -----"
   mkdir deps && cd deps
   git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
-  git clone -b aseprite-m102 https://github.com/aseprite/skia.git
+  git clone -b aseprite-m124 https://github.com/aseprite/skia.git
   export PATH="${PWD}/depot_tools:${PATH}"
   cd skia
   python tools/git-sync-deps
@@ -71,10 +71,10 @@ skia_setup() {
     return
   fi
   if [[ $(uname -m) == "x86_64" && "$prebuilt" = true && "$local" = false ]]; then
-    curl -LO https://github.com/aseprite/skia/releases/download/m102-861e4743af/Skia-Linux-Release-x64-libc++.zip
+    curl -LO https://github.com/aseprite/skia/releases/download/m124-08a5439a6b/Skia-Linux-Release-x64.zip
     mkdir deps
-    unzip Skia-Linux-Release-x64-libc++.zip -d deps/skia
-    rm Skia-Linux-Release-x64-libc++.zip
+    unzip Skia-Linux-Release-x64.zip -d deps/skia
+    rm Skia-Linux-Release-x64.zip
   elif [[ $(uname -m) == "x86_64" && $prebuilt = false && "$local" = false ]]; then
     input="x"
     printf "There is a prebuilt package of skia for your current architecture.\nDo you want to use the prebuilt archive? This will speed up the build process! (NOTE: If you encounter any issues while using the prebuilt package, try to re-run this script and tick n instead) (y/n): "
